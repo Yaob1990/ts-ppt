@@ -7,7 +7,7 @@ import { github, vsDark } from "@code-surfer/themes";
 
 export const theme = vsDark;
 
-# typescript 简单速览
+# typescript 特性速览
 
 ---
 
@@ -34,7 +34,7 @@ npx ts-lib-scripts create ts-hello-world
 <CodeSurfer>
 
 ```typescript 1,3 title="基础类型" subtitle="布尔值"
-let isDone: boolean = fasle;
+let isDone: boolean = false;
 
 isDone = 2; // Error,不能将类型"2"分配给类型“boolean”
 ```
@@ -217,9 +217,9 @@ const strLength: number = (someValue as string).length;
 
 ---
 
-以上两种类型断言的形式是等价的，至于用哪个，大部分时候看个人喜好。
+以上两种类型断言的形式是等价的
 
-但是，当在 TypeScript 里使用到 JSX 时，必须使用 as 语法形式的断言。
+推荐使用 as 语法形式的断言。
 
 ---
 
@@ -254,13 +254,13 @@ console.log(element!.getBoundingClientRect());
 <CodeSurfer>
 
 ```ts 1,2,3 title="接口" subtitle="接口可以为对象定义结构信息"
-interface Props {
-  userName: string;
-}
-
-function Hello(props: Props) {
-  return <div>Hello, {props.userName}</div>;
-}
+                        interface Props {
+                          userName: string;
+                        }
+                        
+                        function Hello(props: Props) {
+                          return <div>Hello, {props.userName}</div>;
+                        }
 ```
 
 ```ts 1,2,3 title="可选属性" subtitle="默认情况下，接口中的属性是必须的，不指定则会提示错误。如果属性不是必需的，则可以用?声明属性为可选属性"
@@ -283,11 +283,13 @@ function createSquare(config: SquareConfig): { color: string; area: number } {
 let mySquare = createSquare({ color: 'black' });
 ```
 
-```ts title="只读属性" subtitle="一些对象属性只能在对象刚刚创建的时候修改其值。 你可以在属性名前用 readonly来指定只读属性"
-interface Point {
-  readonly x: number;
-  readonly y: number;
-}
+```ts 1,2,3,4 title="只读属性" subtitle="一些对象属性只能在对象刚刚创建的时候修改其值。 你可以在属性名前用 readonly来指定只读属性"
+
+                        interface Point {
+                          readonly x: number;
+                          readonly y: number;
+                        }
+
 ```
 
 ```ts 1 title="只读属性" subtitle="你可以通过赋值一个对象字面量来构造一个Point。 "
