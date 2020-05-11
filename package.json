@@ -1,14 +1,20 @@
 {
   "private": true,
   "version": "1.0.0",
+  "homepage": "https://yaob1990.github.io/ts-ppt/",
   "scripts": {
     "start": "mdx-deck deck.mdx",
     "build": "mdx-deck build deck.mdx",
-    "test": "echo \"there are no tests\""
+    "test": "echo \"there are no tests\"",
+    "predeploy": "yarn build",
+    "deploy": "gh-pages -d dist"
   },
   "devDependencies": {
     "code-surfer": "3.1.0",
     "mdx-deck": "3.0.13"
   },
-  "name": "ts-show"
+  "name": "ts-show",
+  "dependencies": {
+    "gh-pages": "^2.2.0"
+  }
 }

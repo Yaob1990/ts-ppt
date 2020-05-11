@@ -46,6 +46,7 @@ const binaryLiteral: number = 0b1010;
 const octalLiteral: number = 0o744;
 ```
 
+
 ```ts 1,2 title="基础类型" subtitle="字符串"
 let name: string = 'bob';
 name = 'smith';
@@ -69,40 +70,6 @@ x = [10, 'hello']; // 错误，类型不匹配
 let y = [string,number,boolean?] 
 y = ['a',1,true]
 y = ['a',1]
-```
-
-```ts 5 title="元组" subtitle="输出什么？"
-let x: [string, number];
-x = ['hello', 10]; // OK
-x = [10, 'hello']; // 错误，类型不匹配
-
-console.log(x[0].substr(1));
-```
-
-```ts 5 title="元组" subtitle="ello"
-let x: [string, number];
-x = ['hello', 10]; // OK
-x = [10, 'hello']; // 错误，类型不匹配
-
-console.log(x[0].substr(1));
-```
-
-```ts 6 title="元组" subtitle="输出什么？"
-let x: [string, number];
-x = ['hello', 10]; // OK
-x = [10, 'hello']; // 错误，类型不匹配
-
-console.log(x[0].substr(1));
-console.log(x[1].substr(1));
-```
-
-```ts 6 title="元组" subtitle="错误, 'number'类型没有'substr'方法"
-let x: [string, number];
-x = ['hello', 10]; // OK
-x = [10, 'hello']; // 错误，类型不匹配
-
-console.log(x[0].substr(1));
-console.log(x[1].substr(1));
 ```
 
 ```ts 1 title="any" subtitle="有时候，我们会想要为那些在编程阶段还不清楚类型的变量指定一个类型,  我们不希望类型检查器对这些值进行检查而是直接让它们通过编译阶段的检查,就可以指定any"
@@ -264,23 +231,10 @@ console.log(element!.getBoundingClientRect());
 ```
 
 ```ts 1,2,3 title="可选属性" subtitle="默认情况下，接口中的属性是必须的，不指定则会提示错误。如果属性不是必需的，则可以用?声明属性为可选属性"
-interface SquareConfig {
-  color?: string;
-  width?: number;
-}
-
-function createSquare(config: SquareConfig): { color: string; area: number } {
-  let newSquare = { color: 'white', area: 100 };
-  if (config.color) {
-    newSquare.color = config.color;
-  }
-  if (config.width) {
-    newSquare.area = config.width * config.width;
-  }
-  return newSquare;
-}
-
-let mySquare = createSquare({ color: 'black' });
+                      interface SquareConfig {
+                        color?: string;
+                        width?: number;
+                      }
 ```
 
 ```ts 1,2,3,4 title="只读属性" subtitle="一些对象属性只能在对象刚刚创建的时候修改其值。 你可以在属性名前用 readonly来指定只读属性"
@@ -293,15 +247,15 @@ let mySquare = createSquare({ color: 'black' });
 ```
 
 ```ts 1 title="只读属性" subtitle="你可以通过赋值一个对象字面量来构造一个Point。 "
-let p1: Point = { x: 10, y: 20 };
+                    let p1: Point = { x: 10, y: 20 };
 
-p1.x = 5; // error!
+                    p1.x = 5; // error!
 ```
 
 ```ts 3 title="只读属性" subtitle=" 赋值后， x和y再也不能被改变了"
-let p1: Point = { x: 10, y: 20 };
+                    let p1: Point = { x: 10, y: 20 };
 
-p1.x = 5; // error!
+                    p1.x = 5; // error!
 ```
 
 </CodeSurfer>
@@ -312,13 +266,10 @@ p1.x = 5; // error!
 
 ---
 
-<CodeSurfer>
 
-```js
-function add(x, y) {
-  return x + y;
-}
-```
+<CodeSurferColumns themes={[vsDark, github]}>
+
+<Step>
 
 ```js 1:3 subtitle="javascript"
 function add(x, y) {
@@ -332,20 +283,25 @@ function add(x: number, y: number): number {
 }
 ```
 
-```ts 1 subtitle="给函数参数和返回值赋值"
-function add(x: number, y: number): number {
-  return x + y;
-}
-```
+</Step>
 
-```ts
-add(1, 2); // OK
-add(1, '2'); // error
+</CodeSurferColumns>
+
+---
+
+<CodeSurfer>
+
+
+
+```ts 1 subtitle="给函数参数和返回值赋值"
+    function add(x: number, y: number): number {
+      return x + y;
+    }
 ```
 
 ```ts 2 subtitle="ts错误提示：""2"不能赋给类型“number”的参数。"
-add(1, 2); // OK
-add(1, '2'); // error
+            add(1, 2); // OK
+            add(1, '2'); // error
 ```
 
 </CodeSurfer>
@@ -361,65 +317,65 @@ add(1, '2'); // error
 <CodeSurfer>
 
 ```ts
-function calc(
-  x: number,
-  y: number,
-  calcFn: ???,
-): number {
-  return calcFn(x, y);
-}
+                  function calc(
+                    x: number,
+                    y: number,
+                    calcFn: ???,
+                  ): number {
+                    return calcFn(x, y);
+                  }
 ```
 
 ```ts 4 subtitle="calcFn的类型怎么声明？"
-function calc(
-  x: number,
-  y: number,
-  calcFn: ???,
-): number {
-  return calcFn(x, y);
-}
+                  function calc(
+                    x: number,
+                    y: number,
+                    calcFn: ???,
+                  ): number {
+                    return calcFn(x, y);
+                  }
 ```
 
 ```ts 4
-function calc(
-  x: number,
-  y: number,
-  calcFn: (x: number, y: number) => number,
-): number {
-  return calcFn(x, y);
-}
+            function calc(
+              x: number,
+              y: number,
+              calcFn: (x: number, y: number) => number,
+            ): number {
+              return calcFn(x, y);
+            }
 ```
 
 ```ts 1:5
-function add(x: number, y: number): number {
-  return x + y;
-}
+        function add(x: number, y: number): number {
+          return x + y;
+        }
 
-calc(1, 2, add); // ok
+        calc(1, 2, add); // ok
 ```
 
 ```ts 1:5
-function pow(x: number, y: number): number {
-  return x ** y;
-}
+        function pow(x: number, y: number): number {
+          return x ** y;
+        }
 
-calc(1, 2, pow); // ok
+        calc(1, 2, pow); // ok
 ```
 
 ```ts 1:5
-function divide(x: number, y: number): number {
-  return x / y;
-}
+        function divide(x: number, y: number): number {
+          return x / y;
+        }
 
-calc(2, 1, divide); // ok
+        calc(2, 1, divide); // ok
 ```
 
 ```ts 1:5
-function sum(x: number, y: number, z: number): number {
-  return x + y + z;
-}
+        function sum(x: number, y: number, z: number): number {
+          return x + y + z;
+        }
 
-calc(1, 2, sum); // error
+        calc(1, 2, sum); // error
 ```
 
 </CodeSurfer>
@@ -433,54 +389,21 @@ calc(1, 2, sum); // error
 <CodeSurfer>
 
 ```ts
-function buildName(firstName: string, lastName?: string) {
-  return firstName + lastName;
-}
+        function buildName(firstName: string, lastName?: string) {
+          return firstName + lastName;
+        }
 ```
 
 ```ts 1 subtitle="参数后面添加?，表示该参数可选"
-function buildName(firstName: string, lastName?: string) {
-  return firstName + lastName;
-}
+        function buildName(firstName: string, lastName?: string) {
+          return firstName + lastName;
+        }
 ```
 
 ```ts
-buildName('Bob'); // ok
-buildName('Bob', 'Alias'); // ok
-buildName('Bob', 'Alias', 'Axx'); // error
-```
-
-```ts 1 subtitle="有问题么？"
-function buildName(firstName?: string, lastName: string) {
-  return firstName + lastName;
-}
-```
-
-```ts 1 subtitle="可选参数必须在必须参数之后"
-function buildName(firstName?: string, lastName: string) {
-  return firstName + lastName;
-}
-```
-
-```ts 1
-function buildName(firstName: string | undefined, lastName: string) {
-  return firstName + lastName;
-}
-```
-
-```ts 1 subtitle="一个函数可以有多个可选参数"
-function buildName(firstName?: string, lastName?: string) {
-  return firstName + lastName;
-}
-```
-
-```ts 1:4 subtitle="lastName?: string等价于lastName: string | undefined"
-function buildName(
-  firstName: string | undefined,
-  lastName: string | undefined,
-) {
-  return firstName + lastName;
-}
+          buildName('Bob'); // ok
+          buildName('Bob', 'Alias'); // ok
+          buildName('Bob', 'Alias', 'Axx'); // error
 ```
 
 </CodeSurfer>
@@ -517,19 +440,19 @@ const result2 = buildName('Bob', 'Adams'); // OK, result2 = Bob Adams
 <CodeSurfer>
 
 ```ts
-class Animal {
-  name: string;
+          class Animal {
+            name: string;
 
-  constructor(theName: string) {
-    this.name = theName;
-  }
+            constructor(theName: string) {
+              this.name = theName;
+            }
 
-  move(distanceInMeters: number) {
-    alert(this.name + 'moved' + distanceInMeters + 'm');
-  }
-}
+            move(distanceInMeters: number) {
+              alert(this.name + 'moved' + distanceInMeters + 'm');
+            }
+          }
 
-const animal = new Animal('Kiki');
+          const animal = new Animal('Kiki');
 ```
 
 ```ts 2 subtitle="给类的成员属性添加类型"
@@ -743,17 +666,17 @@ let john = new Person('John'); // 错误: 'Person' 的构造函数是被保护�
 <CodeSurfer>
 
 ```ts title="类型推论"
-let x: number = 0;
+                  let x: number = 0;
 
-x = 1; // OK
-x = '1'; // error
+                  x = 1; // OK
+                  x = '1'; // error
 ```
 
-```ts 1 title="类型推论" subtitle="x被赋值为0，所以我们一般会推测它的类型为number。对于这种显而易见的类型，TypeScript 允许我们省略类型声明"
-let x = 0;
+```ts 1,2,3,4 title="类型推论" subtitle="x被赋值为0，所以我们一般会推测它的类型为number。对于这种显而易见的类型，TypeScript 允许我们省略类型声明"
+                      let x = 0;
 
-x = 1; // OK
-x = '1'; // error
+                      x = 1; // OK
+                      x = '1'; // error
 ```
 
 ```jsx 1:10
@@ -858,57 +781,57 @@ const names: Array<string> = ['张三', '李四', '王五'];
 <CodeSurfer>
 
 ```typescript
-function createArray(length: number, value: any): any[] {
-  return new Array(length).fill(value);
-}
+      function createArray(length: number, value: any): any[] {
+        return new Array(length).fill(value);
+      }
 ```
 
 ```typescript 1 subtitle="any[]不是我们期望的返回值类型"
-function createArray(length: number, value: any): any[] {
-  return new Array(length).fill(value);
-}
+      function createArray(length: number, value: any): any[] {
+        return new Array(length).fill(value);
+      }
 ```
 
 ```typescript 1 subtitle="如果value是string类型的，期望返回值类型是string[]"
-function createArray(length: number, value: string): string[] {
-  return new Array(length).fill(value);
-}
+      function createArray(length: number, value: string): string[] {
+        return new Array(length).fill(value);
+      }
 ```
 
 ```typescript 1 subtitle="如果value是boolean类型的，期望返回值类型是boolean[]"
-function createArray(length: number, value: boolean): boolean[] {
-  return new Array(length).fill(value);
-}
+      function createArray(length: number, value: boolean): boolean[] {
+        return new Array(length).fill(value);
+      }
 ```
 
 ```typescript 1 subtitle="如果value是Date类型的，期望返回值类型是Date[]"
-function createArray(length: number, value: Date): Date[] {
-  return new Array(length).fill(value);
-}
+      function createArray(length: number, value: Date): Date[] {
+        return new Array(length).fill(value);
+      }
 ```
 
 ```typescript 1 subtitle="我们使用一个类型变量T，来代表value的类型"
-function createArray(length: number, value: T): T[] {
-  return new Array(length).fill(value);
-}
+      function createArray(length: number, value: T): T[] {
+        return new Array(length).fill(value);
+      }
 ```
 
 ```typescript 1 subtitle="那么返回值的类型就是T[]"
-function createArray(length: number, value: T): T[] {
-  return new Array(length).fill(value);
-}
+      function createArray(length: number, value: T): T[] {
+        return new Array(length).fill(value);
+      }
 ```
 
 ```typescript 1 subtitle="与变量一样，在使用类型变量之前，类型变量也需要声明"
-function createArray<T>(length: number, value: T): T[] {
-  return new Array(length).fill(value);
-}
+      function createArray<T>(length: number, value: T): T[] {
+        return new Array(length).fill(value);
+      }
 ```
 
 ```typescript 1 subtitle="使用了类型变量的函数，称之为泛型函数"
-function createArray<T>(length: number, value: T): T[] {
-  return new Array(length).fill(value);
-}
+      function createArray<T>(length: number, value: T): T[] {
+        return new Array(length).fill(value);
+      }
 ```
 
 </CodeSurfer>
@@ -1111,42 +1034,42 @@ const items = new List([1, 2, 3]);
 <CodeSurfer>
 
 ```typescript
-interface Lengthwise {
-  length: number;
-}
+        interface Lengthwise {
+          length: number;
+        }
 
-function loggingIdentity<T extends Lengthwise>(arg: T): T {
-  console.log(arg.length); // ok
-  return arg;
-}
+        function loggingIdentity<T extends Lengthwise>(arg: T): T {
+          console.log(arg.length); // ok
+          return arg;
+        }
 ```
 
 ```typescript 5 subtitle="T必须有length: number属性"
-interface Lengthwise {
-  length: number;
-}
+        interface Lengthwise {
+          length: number;
+        }
 
-function loggingIdentity<T extends Lengthwise>(arg: T): T {
-  console.log(arg.length); // ok
-  return arg;
-}
+        function loggingIdentity<T extends Lengthwise>(arg: T): T {
+          console.log(arg.length); // ok
+          return arg;
+        }
 ```
 
 ```typescript 6 subtitle="arg是T类型的，所以它有length属性"
-interface Lengthwise {
-  length: number;
-}
+        interface Lengthwise {
+          length: number;
+        }
 
-function loggingIdentity<T extends Lengthwise>(arg: T): T {
-  console.log(arg.length); // ok
-  return arg;
-}
+        function loggingIdentity<T extends Lengthwise>(arg: T): T {
+          console.log(arg.length); // ok
+          return arg;
+        }
 ```
 
 ```typescript 1:3
-loggingIdentity(3); // error
+        loggingIdentity(3); // error
 
-loggingIdentity({ length: 10, value: 3 }); // OK
+        loggingIdentity({ length: 10, value: 3 }); // OK
 ```
 
 </CodeSurfer>
@@ -1245,6 +1168,14 @@ item = null; // error
 </CodeSurfer>
 
 ---
+
+一句项目地址：https://github.com/justOneWord
+
+
+本文档地址：https://github.com/Yaob1990/ts-ppt
+
+---
+
 
 谢谢！！！！
 
